@@ -1,4 +1,4 @@
-import { useState} from "react" 
+import { useState } from "react";
 import { CORE_CONCEPTS } from "./data";
 import { EXAMPLES } from "./data";
 import Header from "../src/components/Header/Header";
@@ -6,11 +6,25 @@ import CoreConcept from "./components/CoreConcept/CoreConcept";
 import TabButton from "./components/TabButton/TabButton";
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState("components");
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   function handleClick(selectedButton) {
     setSelectedTopic(selectedButton);
     console.log(selectedTopic);
+  }
+
+  let tabContent = <p>Please select a topic.</p>;
+
+  if (selectedTopic) {
+    tabContent = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedTopic].code}</code>
+        </pre>
+      </div>
+    );
   }
 
   return (
@@ -36,15 +50,7 @@ function App() {
             <TabButton onClick={() => handleClick("props")}>Props</TabButton>
             <TabButton onClick={() => handleClick("state")}>State</TabButton>
           </menu>
-          <div id='tab-content'>
-            <h3>{ EXAMPLES[selectedTopic].title}</h3>
-            <p>{ EXAMPLES[selectedTopic].description}</p>
-            <pre>
-              <code>
-              { EXAMPLES[selectedTopic].code}
-              </code>
-            </pre>
-          </div>
+          {tabContent}
         </section>
       </main>
     </div>
