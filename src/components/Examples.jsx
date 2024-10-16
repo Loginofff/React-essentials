@@ -1,19 +1,19 @@
-import TabButton from "./TabButton/TabButton"
+import TabButton from "./TabButton/TabButton";
 import { EXAMPLES } from "../data";
-import { useState } from 'react'
+import { useState } from "react";
 import Section from "./Section";
+import Tabs from "./Tabs";
 
 export default function Examples() {
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
-    const [selectedTopic, setSelectedTopic] = useState(null);
+  function handleClick(selectedButton) {
+    setSelectedTopic(selectedButton);
+    console.log(selectedTopic);
+  }
 
-    function handleClick(selectedButton) {
-      setSelectedTopic(selectedButton);
-      console.log(selectedTopic);
-    }
-  
-    let tabContent = <p>Please select a topic.</p>;
-  
+  let tabContent = <p>Please select a topic.</p>;
+
   if (selectedTopic && EXAMPLES[selectedTopic]) {
     tabContent = (
       <div id="tab-content">
@@ -27,8 +27,11 @@ export default function Examples() {
   }
 
   return (
-    <Section title='Examples' id="examples">
-          <menu>
+    <Section title="Examples" id="examples">
+      <Tabs
+      ButtonContainer="menu"
+        buttons={
+          <>
             <TabButton
               isSelected={selectedTopic === "components"}
               onClick={() => handleClick("components")}
@@ -53,8 +56,12 @@ export default function Examples() {
             >
               State
             </TabButton>
-          </menu>
-          {tabContent}
-        </Section>
-  )
+          </>
+        }
+      >
+        {tabContent}
+      </Tabs>
+    </Section>
+  );
 }
+
