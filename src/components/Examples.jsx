@@ -9,7 +9,6 @@ export default function Examples() {
 
   function handleClick(selectedButton) {
     setSelectedTopic(selectedButton);
-    console.log(selectedTopic);
   }
 
   let tabContent = <p>Please select a topic.</p>;
